@@ -26,7 +26,7 @@ import androidx.compose.ui.res.painterResource
 import kotlinx.coroutines.*
 
 
-private var acceleration: Float = 0.0f
+private var acceleration: Float = 0.0f // holds accelerometer value
 private var appRunning = false
 private var pointsEarned = 0.000
 private var possiblePoints = 0.000
@@ -38,6 +38,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        // sets up the layout of our app
         super.onCreate(savedInstanceState)
 
         setContent {
@@ -49,6 +50,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
         setUpSensorStuff()
     }
 
+    // sets up sensorManager 
     private fun setUpSensorStuff() {
         sensorManager = getSystemService(SENSOR_SERVICE) as SensorManager
 
@@ -60,7 +62,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
         }
     }
 
-
+    // gets acceleration value from accelerometer
     override fun onSensorChanged(event: SensorEvent?) {
         if(event?.sensor?.type == Sensor.TYPE_LINEAR_ACCELERATION){
             acceleration = event.values[0]
@@ -90,7 +92,7 @@ class MainActivity : ComponentActivity(), SensorEventListener {
 }
 
 
-
+// sets up layout of our app
 @Composable
 fun DriveEfficiencyApp() {
     var averageScore by remember { mutableStateOf(0.0) }
@@ -101,7 +103,7 @@ fun DriveEfficiencyApp() {
 
 
     // Grading algorithm parameters
-    val minThreshold = 0.02f
+    val minThreshold = 0.02f // <---- Alter these to fit needs.
     val maxThreshold = 1.00f
     val coroutineScope = rememberCoroutineScope()
 
@@ -135,7 +137,7 @@ fun DriveEfficiencyApp() {
         )
 
 
-
+    // Start of algorithm
     Button(
             onClick = {
                 isDriving = true
@@ -172,7 +174,7 @@ fun DriveEfficiencyApp() {
             onClick = {
                 isDriving = false
 
-                averageScore= (pointsEarned/ possiblePoints)*100
+                averageScore= (pointsEarned/ possiblePoints)*100 // endo of algorithm
                       },
             modifier = Modifier
                 .fillMaxWidth()
