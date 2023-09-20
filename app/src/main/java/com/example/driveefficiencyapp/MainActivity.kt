@@ -102,7 +102,7 @@ fun DriveEfficiencyApp() {
 
     // Grading algorithm parameters
     val minThreshold = 0.02f
-    val maxThreshold = 0.75f
+    val maxThreshold = 1.00f
     val coroutineScope = rememberCoroutineScope()
 
 
